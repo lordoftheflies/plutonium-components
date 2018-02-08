@@ -7,7 +7,7 @@
                 display: block;
             }
         </style>
-        <h2>Hello [[prop1]]!</h2>
+        <label>[[username]]</label>
     </template>
 
     <script>
@@ -26,9 +26,10 @@
 
             static get properties() {
                 return {
-                    prop1: {
+                    username: {
                         type: String,
-                        value: 'plutonium-userinfo'
+                        notify: true,
+                        value: () => 'Anonymous'
                     }
                 };
             }
