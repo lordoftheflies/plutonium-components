@@ -1,0 +1,44 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="plutonium-widget-mixin.html">
+
+<script>
+    // Create my namespace, if it doesn't exist
+    if (!window.Plutonium) {
+        window.Plutonium = {};
+    }
+
+    /**
+     * Element class mixin that provides meta-programming for Polymer's template
+     * binding and data observation (collectively, "property effects") system.
+     *
+     * This mixin uses provides the following key static methods for adding
+     * property effects to an element class:
+     * - `addPropertyEffect`
+     * - `bindTemplate`
+     *
+     * Each method creates one or more property accessors, along with metadata
+     *
+     * @mixinFunction
+     * @polymer
+     * @appliesMixin Polymer.TemplateStamp
+     * @appliesMixin Polymer.PropertyAccessors
+     * @memberof Polymer
+     * @summary Element class mixin that provides meta-programming for Polymer's
+     * template binding and data observation system.
+     */
+    Plutonium.NotificationEmitterMixin = Polymer.dedupingMixin((base) => class extends window.Plutonium.WidgetMixin(base) {
+
+        constructor() {
+            super();
+        }
+
+        static get properties() {
+            return {};
+        }
+
+        static get observers() {
+            return [];
+        }
+    });
+
+</script>

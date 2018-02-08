@@ -1,0 +1,39 @@
+<link rel="import" href="../../polymer/polymer-element.html">
+
+<dom-module id="plutonium-index-panel">
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+        </style>
+        <h2>Hello [[prop1]]!</h2>
+    </template>
+
+    <script>
+        /**
+         * `plutonium-panels`
+         * Polymer 2.0 based panels for progressive web frontend.
+         *
+         * @customElement
+         * @polymer
+         * @demo demo/index.html
+         */
+        class PlutoniumIndexPanel extends Polymer.Element {
+            static get is() {
+                return 'plutonium-index-panel';
+            }
+
+            static get properties() {
+                return {
+                    prop1: {
+                        type: String,
+                        value: 'plutonium-index-panel'
+                    }
+                };
+            }
+        }
+
+        window.customElements.define(PlutoniumIndexPanel.is, PlutoniumIndexPanel);
+    </script>
+</dom-module>
