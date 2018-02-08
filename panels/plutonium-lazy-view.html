@@ -1,0 +1,69 @@
+<link rel="import" href="../../polymer/polymer-element.html">
+<link rel="import" href="../../paper-spinner/paper-spinner.html">
+
+<dom-module id="plutonium-lazy-view">
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+        </style>
+        <div>
+            <div hidden="[[!loading]]">
+                <paper-spinner active="[[loading]]"></paper-spinner>
+                <slot name="message">Loading ...</slot>
+            </div>
+
+            <template is="dom-if" if="[[modelInitialized]]">
+                <div>
+                    <slot></slot>
+                </div>
+            </template>
+        </div>
+    </template>
+
+    <script>
+        /**
+         * `plutonium-panels`
+         * Polymer 2.0 based panels for progressive web frontend.
+         *
+         * @customElement
+         * @polymer
+         * @demo demo/index.html
+         */
+        class PlutoniumLazyView extends Polymer.Element {
+            static get is() {
+                return 'plutonium-lazy-view';
+            }
+
+            static get properties() {
+                return {
+                    modelInitialized: {
+                        type: Boolean,
+                        notify: true,
+                        reflectToAttribute: true
+                    },
+
+                    loading: {
+                        type: Boolean,
+                        notify: true,
+                        reflectToAttribute: true,
+                        value: () => false
+                    }
+                };
+            }
+
+            static get observers() {
+                return [
+                    'observeModelInitialized(loading)'
+                ]
+            }
+
+            observeModelInitialized(loading) {
+                this.set('modelInitialized', loading);
+            }
+        }
+
+        window.customElements.define(PlutoniumLazyView.is, PlutoniumLazyView);
+    </script>
+</dom-module>
