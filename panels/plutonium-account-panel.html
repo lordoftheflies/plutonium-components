@@ -1,0 +1,39 @@
+<link rel="import" href="../../polymer/polymer-element.html">
+
+<dom-module id="plutonium-account-panel">
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+        </style>
+        <h2>Hello [[prop1]]!</h2>
+    </template>
+
+    <script>
+        /**
+         * `plutonium-panels`
+         * Polymer 2.0 based panels for progressive web frontend.
+         *
+         * @customElement
+         * @polymer
+         * @demo demo/index.html
+         */
+        class PlutoniumAccountPanel extends Polymer.Element {
+            static get is() {
+                return 'plutonium-account-panel';
+            }
+
+            static get properties() {
+                return {
+                    prop1: {
+                        type: String,
+                        value: 'plutonium-account-panel'
+                    }
+                };
+            }
+        }
+
+        window.customElements.define(PlutoniumAccountPanel.is, PlutoniumAccountPanel);
+    </script>
+</dom-module>
