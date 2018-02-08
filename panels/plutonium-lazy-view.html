@@ -15,11 +15,10 @@
                 <slot name="message">Loading ...</slot>
             </div>
 
-            <template is="dom-if" if="[[modelInitialized]]">
-                <div>
-                    <slot name="content"></slot>
-                </div>
-            </template>
+            <div hidden="[[modelInitialized]]">
+                <slot name="content"></slot>
+            </div>
+            
         </div>
     </template>
 
