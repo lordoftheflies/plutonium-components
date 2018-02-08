@@ -1,6 +1,13 @@
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 
+<script rel="import" src="plutonium-core.js"></script>
+
 <script>
+    // Create my namespace, if it doesn't exist
+    if (!window.Plutonium) {
+        window.Plutonium = {};
+    }
+
     /**
      * Element class mixin that provides meta-programming for Polymer's template
      * binding and data observation (collectively, "property effects") system.
@@ -37,7 +44,39 @@
      * @summary Element class mixin that provides meta-programming for Polymer's
      * template binding and data observation system.
      */
-    Polymer.PropertyEffects = Polymer.dedupingMixin(superClass => {
+    Plutonium.WidgetMixin = Polymer.dedupingMixin((base) => class extends base {
 
-    }
+        constructor() {
+            super();
+        }
+
+        static get properties() {
+            return {};
+        }
+
+        static get observers() {
+            return [];
+        }
+
+        get fqen() {
+            return (this.id) ? this.is + '#' + this.id : this.is;
+        }
+
+        decoratorBuilder() {
+            return new window.Plutonium.DecoratorBuilder();
+        }
+
+        console_debug(msg) {
+            console.debug(this.fqen, msg);
+        }
+
+        console_log(msg) {
+            console.log(this.fqen, msg);
+        }
+
+        console_error(msg) {
+            console.log(this.fqen, msg);
+        }
+    });
+
 </script>
