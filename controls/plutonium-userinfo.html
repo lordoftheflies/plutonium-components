@@ -1,6 +1,6 @@
 <link rel="import" href="../../polymer/polymer-element.html">
 
-<dom-module id="plutonium-profile-panel">
+<dom-module id="plutonium-userinfo">
     <template>
         <style>
             :host {
@@ -19,21 +19,21 @@
          * @polymer
          * @demo demo/index.html
          */
-        class PlutoniumAccountPanel extends Polymer.Element {
+        class PlutoniumUserInfoControl extends Polymer.Element {
             static get is() {
-                return 'plutonium-profile-panel';
+                return 'plutonium-userinfo';
             }
 
             static get properties() {
                 return {
                     prop1: {
                         type: String,
-                        value: 'plutonium-profile-panel'
+                        value: 'plutonium-userinfo'
                     }
                 };
             }
         }
 
-        window.customElements.define(PlutoniumProfilePanel.is, PlutoniumProfilePanel);
+        window.customElements.define(PlutoniumUserInfoControl.is, PlutoniumUserInfoControl);
     </script>
 </dom-module>

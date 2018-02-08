@@ -12,12 +12,45 @@
     <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
     <link rel="import" href="../plutonium-components.html">
 
+    <link rel="import" href="../controls/plutonium-breadcrumbs.html">
+    <link rel="import" href="../controls/plutonium-submenu.html">
+    <link rel="import" href="../controls/plutonium-userinfo.html">
+
+    <link rel="import" href="../panels/plutonium-index-panel.html">
+    <link rel="import" href="../panels/plutonium-account-panel.html">
+    <link rel="import" href="../panels/plutonium-detail-panel.html">
+    <link rel="import" href="../panels/plutonium-lazy-view.html">
+
     <custom-style>
       <style is="custom-style" include="demo-pages-shared-styles">
       </style>
     </custom-style>
   </head>
   <body>
+    <div class="vertical-section-container centered">
+      <h3>Breadcrumbs</h3>
+      <demo-snippet>
+        <template>
+          <plutonium-breadcrumbs>
+            <a href="#" slot="crumb">Crumb #0</a>
+            <a href="#" slot="crumb">Crumb #1</a>
+            <a href="#" slot="crumb">Crumb #2</a>
+            <a href="#" slot="crumb">Crumb #3</a>
+          </plutonium-breadcrumbs>
+        </template>
+      </demo-snippet>
+      <h3>Submenu</h3>
+      <demo-snippet>
+        <template>
+          <plutonium-submenu>
+            <label href="#" slot="label">Menu</label>
+            <a href="#" slot="menu">Submenu #0</a>
+            <a href="#" slot="menu">Submenu #1</a>
+            <a href="#" slot="menu">Submenu #2</a>
+          </plutonium-submenu>
+        </template>
+      </demo-snippet>
+    </div>
     <div class="vertical-section-container centered">
       <h3>Basic plutonium-components demo</h3>
       <demo-snippet>

@@ -1,0 +1,52 @@
+<link rel="import" href="../../polymer/polymer-element.html">
+<link rel="import" href="../../iron-collapse/iron-collapse.html">
+<link rel="import" href="../plutonium-shared-styles.html">
+
+<dom-module id="plutonium-submenu">
+    <template>
+        <style include="plutonium-shared-styles">
+            :host {
+                display: block;
+            }
+        </style>
+
+        <div id="labelContainer" on-click="onToggleSubmenuCollapse">
+            <slot name="label"></slot>
+        </div>
+
+        <iron-collapse id="submenuCollapse">
+            <div class="layout vertical">
+                <slot name="menu"></slot>
+            </div>
+        </iron-collapse>
+        <div>
+
+        </div>
+    </template>
+
+    <script>
+        /**
+         * `plutonium-panels`
+         * Polymer 2.0 based panels for progressive web frontend.
+         *
+         * @customElement
+         * @polymer
+         * @demo demo/index.html
+         */
+        class PlutoniumSubmenuControl extends Polymer.Element {
+            static get is() {
+                return 'plutonium-submenu';
+            }
+
+            static get properties() {
+                return {};
+            }
+
+            onToggleSubmenuCollapse(e) {
+                this.$.submenuCollapse.toggle();
+            }
+        }
+
+        window.customElements.define(PlutoniumSubmenuControl.is, PlutoniumSubmenuControl);
+    </script>
+</dom-module>

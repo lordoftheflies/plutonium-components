@@ -1,0 +1,36 @@
+<link rel="import" href="../../polymer/polymer-element.html">
+<link rel="import" href="../../iron-collapse/iron-collapse.html">
+
+<dom-module id="plutonium-breadcrumbs">
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+        </style>
+
+        <slot name="crumb"></slot>
+    </template>
+
+    <script>
+        /**
+         * `plutonium-panels`
+         * Polymer 2.0 based panels for progressive web frontend.
+         *
+         * @customElement
+         * @polymer
+         * @demo demo/index.html
+         */
+        class PlutoniumBreadcrumbsControl extends Polymer.Element {
+            static get is() {
+                return 'plutonium-breadcrumbs';
+            }
+
+            static get properties() {
+                return {};
+            }
+        }
+
+        window.customElements.define(PlutoniumBreadcrumbsControl.is, PlutoniumBreadcrumbsControl);
+    </script>
+</dom-module>
