@@ -20,9 +20,11 @@
     <link rel="import" href="../panels/plutonium-account-panel.html">
     <link rel="import" href="../panels/plutonium-detail-panel.html">
     <link rel="import" href="../panels/plutonium-lazy-view.html">
+    <link rel="import" href="../plutonium-shared-styles.html">
+    <link rel="import" href="../plutonium-shared-icons.html">
 
     <custom-style>
-      <style is="custom-style" include="demo-pages-shared-styles">
+      <style is="custom-style" include="demo-pages-shared-styles plutonium-shared-styles">
       </style>
     </custom-style>
   </head>
@@ -32,10 +34,19 @@
       <demo-snippet>
         <template>
           <plutonium-breadcrumbs>
-            <a href="#" slot="crumb">Crumb #0</a>
-            <a href="#" slot="crumb">Crumb #1</a>
-            <a href="#" slot="crumb">Crumb #2</a>
-            <a href="#" slot="crumb">Crumb #3</a>
+            <div slot="crumb">
+              <a href="#">Crumb #0</a>
+            </div>
+            <div slot="crumb">
+              <a href="#">Crumb #1</a>
+            </div>
+            <div slot="crumb">
+              <a href="#">Crumb #2</a>
+            </div>
+            <div slot="crumb">
+              <a href="#">Crumb #3</a>
+            </div>
+
           </plutonium-breadcrumbs>
         </template>
       </demo-snippet>

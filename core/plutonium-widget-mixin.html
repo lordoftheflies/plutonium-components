@@ -1,4 +1,4 @@
-<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../polymer/polymer-element.html">
 
 <script rel="import" src="plutonium-core.js"></script>
 
@@ -62,20 +62,40 @@
             return (this.id) ? this.is + '#' + this.id : this.is;
         }
 
+        generateUiid() {
+            return window.Plutonium.guid();
+        }
+
+        camelize(string) {
+            return string.toCamelCase(string);
+        }
+
+        tokenize(string) {
+            return string.tokenize(string);
+        }
+
+        hyphenize(string) {
+            return string.styleHyphenFormat(string);
+        }
+
         decoratorBuilder() {
             return new window.Plutonium.DecoratorBuilder();
         }
 
-        console_debug(msg) {
+        consoleDebug(msg) {
             console.debug(this.fqen, msg);
         }
 
-        console_log(msg) {
+        consoleLog(msg) {
             console.log(this.fqen, msg);
         }
 
-        console_error(msg) {
+        consoleError(msg) {
             console.log(this.fqen, msg);
+        }
+
+        isDefAndNotNull(value) {
+            return value !== undefined && value !== null;
         }
     });
 

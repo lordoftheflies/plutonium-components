@@ -1,15 +1,37 @@
 <link rel="import" href="../../polymer/polymer-element.html">
+<link rel="import" href="../../iron-icon/iron-icon.html">
 <link rel="import" href="../../iron-collapse/iron-collapse.html">
+<link rel="import" href="../plutonium-shared-icons.html">
+<link rel="import" href="../core/plutonium-widget-mixin.html">
+<link rel="import" href="../plutonium-shared-styles.html">
 
 <dom-module id="plutonium-breadcrumbs">
     <template>
-        <style>
+        <style include="plutonium-shared-stlyes">
             :host {
-                display: block;
+                display: inline-block;
             }
+
+            ::slotted([slot=crumb]) {
+                display: inline-block;
+                @apply --layout-horizontal;
+                @apply --layout-flex;
+            }
+
+            ::slotted([slot=crumb]) {
+                background-color: #0b97c4;
+            }
+
+            .crumb-icon {
+                width: 24px;
+                height: 24px;
+            }
+
         </style>
 
-        <slot name="crumb"></slot>
+        <div class="layout horizontal">
+            <slot id="crumbContainerSlot" name="crumb"></slot>
+        </div>
     </template>
 
     <script>
@@ -21,13 +43,69 @@
          * @polymer
          * @demo demo/index.html
          */
-        class PlutoniumBreadcrumbsControl extends Polymer.Element {
+        class PlutoniumBreadcrumbsControl extends window.Plutonium.WidgetMixin(Polymer.Element) {
             static get is() {
                 return 'plutonium-breadcrumbs';
             }
 
             static get properties() {
                 return {};
+            }
+
+            ready() {
+                super.ready();
+                let self = this;
+                this._observer = new Polymer.FlattenedNodesObserver(this.$.crumbContainerSlot, (info) => {
+                    this._processNewCrumbNodes(info.addedNodes);
+                    console.debug(this.fqen, 'observe crumb slots', info);
+                    this._processRemovedCrumbNodes(info.removedNodes);
+                });
+
+
+                // let wtf = this.$.crumbContainerSlot.assignedNodes({
+                //     flatten: true
+                // });
+                // this._processNewCrumbNodes(wtf);
+            }
+
+            _processNewCrumbNodes(nodes) {
+                let self = this;
+                nodes.forEach((value, index, array) => {
+                    let ironIcon = document.createElement('iron-icon');
+                    // ironIcon = Polymer.dom(value).appendChild(ironIcon);
+                    if (index > 0) {
+                        ironIcon = Polymer.dom(value).insertBefore(ironIcon, value.childNodes[0]);
+                        self._applyIconElementAttributes(ironIcon);
+                        value.setAttribute('class', 'crumb-container');
+                        console.debug(self.fqen, 'add new crumbs');
+                        // ironIcon.async(function () {
+                        ironIcon.updateStyles({
+                                '--my-crumb-icon-width': '24px',
+                                '--my-crumb-icon-height': '24px',
+                        });
+                        // });
+                    }
+
+                });
+                this.updateStyles({
+                    '--my-crumb-icon-width': '24px',
+                    '--my-crumb-icon-height': '24px',
+                });
+            }
+
+            _processRemovedCrumbNodes(nodes) {
+
+            }
+
+            _applyIconElementAttributes(ironIcon) {
+                ironIcon.setAttribute('icon', 'plutonium-shared-icons:chevron-right');
+                ironIcon.setAttribute('class', 'crumb-icon');
+                ironIcon.setAttribute('slot', 'crumb');
+                ironIcon.setAttribute('width', '24px');
+                ironIcon.width = '24px';
+                ironIcon.height = '24px';
+                ironIcon.setAttribute('height', '24px');
+                ironIcon.setAttribute('style', 'width: 24px; height: 24px;');
             }
         }
 

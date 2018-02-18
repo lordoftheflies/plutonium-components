@@ -1,4 +1,5 @@
 <link rel="import" href="../../polymer/polymer-element.html">
+<link rel="import" href="../../paper-card/paper-card.html">
 
 <dom-module id="plutonium-account-panel">
     <template>
@@ -7,7 +8,13 @@
                 display: block;
             }
         </style>
-        <h2>Hello [[prop1]]!</h2>
+        <paper-card heading="User profile">
+            <div class="card-content">
+                - Felhasználó adatai
+                - Beállítások
+                - Jogosultságok
+            </div>
+        </paper-card>
     </template>
 
     <script>

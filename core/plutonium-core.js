@@ -34,6 +34,49 @@
      * template binding and data observation system.
      */
 
+    const guid = () => {
+        const s4 = () => Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+        return `${s4() + s4()}-${s4()}-${s4()}-${s4()}-${s4() + s4() + s4()}`;
+    };
+    Plutonium.guid = guid;
+
+    const toCamelCase = (token) => {
+        return token
+            .replace(/\s(.)/g, function ($1) {
+                return $1.toUpperCase();
+            })
+            .replace(/\s/g, '')
+            .replace(/^(.)/, function ($1) {
+                return $1.toLowerCase();
+            });
+    };
+
+    const styleHyphenFormat = (token) => {
+        return token.replace(/[A-Z]/g, function (match, offset, string) {
+            return (offset > 0 ? '-' : '') + match.toLowerCase();
+        });
+    };
+
+    const tokenize = (token) => {
+        return token
+            .replace(/ó/g, 'o')
+            .replace(/ö/g, 'o')
+            .replace(/ő/g, 'o')
+            .replace(/ú/g, 'u')
+            .replace(/ü/g, 'u')
+            .replace(/ű/g, 'u')
+            .replace(/í/g, 'i')
+            .replace(/é/g, 'e')
+            .replace(/á/g, 'a')
+            // .replace(/\w+/g, '_')
+            .replace(/-/g, '_')
+            ;
+    };
+
+    String.prototype.toCamelCase = toCamelCase;
+    String.prototype.styleHyphenFormat = styleHyphenFormat;
+    String.prototype.tokenize = tokenize;
+
     class PlutoniumNotification {
 
         constructor(message, icon, link) {
