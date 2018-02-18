@@ -19,7 +19,7 @@
             }
 
             ::slotted([slot=crumb]) {
-                background-color: #0b97c4;
+                
             }
 
             .crumb-icon {
@@ -79,18 +79,18 @@
                         value.setAttribute('class', 'crumb-container');
                         console.debug(self.fqen, 'add new crumbs');
                         // ironIcon.async(function () {
-                        ironIcon.updateStyles({
-                                '--my-crumb-icon-width': '24px',
-                                '--my-crumb-icon-height': '24px',
-                        });
+                        // ironIcon.updateStyles({
+                        //         '--my-crumb-icon-width': '24px',
+                        //         '--my-crumb-icon-height': '24px',
+                        // });
                         // });
                     }
 
                 });
-                this.updateStyles({
-                    '--my-crumb-icon-width': '24px',
-                    '--my-crumb-icon-height': '24px',
-                });
+                // this.updateStyles({
+                //     '--my-crumb-icon-width': '24px',
+                //     '--my-crumb-icon-height': '24px',
+                // });
             }
 
             _processRemovedCrumbNodes(nodes) {
