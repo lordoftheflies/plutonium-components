@@ -1,6 +1,7 @@
 <link rel="import" href="../../polymer/polymer-element.html">
 <link rel="import" href="../../iron-icon/iron-icon.html">
 <link rel="import" href="../../iron-collapse/iron-collapse.html">
+<link rel="import" href="../../iron-selector/iron-selector.html">
 <link rel="import" href="../plutonium-shared-icons.html">
 <link rel="import" href="../core/plutonium-widget-mixin.html">
 <link rel="import" href="../plutonium-shared-styles.html">
@@ -14,24 +15,19 @@
 
             ::slotted([slot=crumb]) {
                 display: inline-block;
+                text-decoration: none;
                 @apply --layout-horizontal;
                 @apply --layout-flex;
             }
 
-            ::slotted([slot=crumb]) {
-                
-            }
-
-            .crumb-icon {
-                width: 24px;
-                height: 24px;
-            }
 
         </style>
 
-        <div class="layout horizontal">
+        <iron-selector class="layout horizontal" selected$="{{selectedCrumb}}">
+
             <slot id="crumbContainerSlot" name="crumb"></slot>
-        </div>
+
+        </iron-selector>
     </template>
 
     <script>
@@ -49,11 +45,17 @@
             }
 
             static get properties() {
-                return {};
+                return {
+                    selectedCrumb: {
+                        type: Number,
+                        notify: true,
+                        value: () => 0
+                    }
+                };
             }
 
-            ready() {
-                super.ready();
+            connectedCallback() {
+                super.connectedCallback();
                 let self = this;
                 this._observer = new Polymer.FlattenedNodesObserver(this.$.crumbContainerSlot, (info) => {
                     this._processNewCrumbNodes(info.addedNodes);
@@ -61,36 +63,41 @@
                     this._processRemovedCrumbNodes(info.removedNodes);
                 });
 
-
-                // let wtf = this.$.crumbContainerSlot.assignedNodes({
-                //     flatten: true
-                // });
-                // this._processNewCrumbNodes(wtf);
+                // this.set('selectedCrumb', (this.$.crumbContainerSlot.assignedNodes({flatten: true}).length - 1) / 2);
+                // this.set('selectedCrumb', (this.$.crumbContainerSlot.assignedNodes({flatten: true}).length - 1) / 2);
             }
 
             _processNewCrumbNodes(nodes) {
                 let self = this;
                 nodes.forEach((value, index, array) => {
-                    let ironIcon = document.createElement('iron-icon');
                     // ironIcon = Polymer.dom(value).appendChild(ironIcon);
-                    if (index > 0) {
-                        ironIcon = Polymer.dom(value).insertBefore(ironIcon, value.childNodes[0]);
-                        self._applyIconElementAttributes(ironIcon);
-                        value.setAttribute('class', 'crumb-container');
-                        console.debug(self.fqen, 'add new crumbs');
-                        // ironIcon.async(function () {
-                        // ironIcon.updateStyles({
-                        //         '--my-crumb-icon-width': '24px',
-                        //         '--my-crumb-icon-height': '24px',
-                        // });
-                        // });
-                    }
+                    if (value.lastElementChild && value.lastElementChild.tagName === 'A') {
 
+
+                        value.lastElementChild.setAttribute('class', 'crumb-link');
+
+                        if (index < array.length - 1) {
+
+
+                            let ironIcon = document.createElement('iron-icon');
+                            // ironIcon = Polymer.dom(value).insertBefore(ironIcon, value.childNodes[0]);
+                            self._applyIconElementAttributes(ironIcon);
+                            ironIcon = Polymer.dom(value.parentElement).insertBefore(ironIcon, value.nextElementSibling);
+
+
+                            value.setAttribute('class', 'crumb-container');
+                            console.debug(self.fqen, 'add new crumbs');
+                            ironIcon.updateStyles({
+                                '--iron-icon-width': '24px',
+                                '--iron-icon-height': '24px'
+                            });
+                        }
+                    }
                 });
-                // this.updateStyles({
-                //     '--my-crumb-icon-width': '24px',
-                //     '--my-crumb-icon-height': '24px',
-                // });
+                this.updateStyles({
+                    '--iron-icon-width': '24px',
+                    '--iron-icon-height': '24px'
+                });
             }
 
             _processRemovedCrumbNodes(nodes) {
