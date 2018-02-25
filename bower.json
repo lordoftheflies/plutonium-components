@@ -11,7 +11,7 @@
     "iron-ajax": "PolymerElements/iron-ajax#^2.1.0",
     "iron-form": "PolymerElements/iron-form#^2.1.4",
     "iron-list": "PolymerElements/iron-list#^2.0.12",
-    "paper-item": "PolymerElements/paper-item#^2.0.0",
+    "paper-item": "PolymerElements/paper-item#^2.1.0",
     "paper-card": "PolymerElements/paper-card#^2.0.0",
     "paper-input": "PolymerElements/paper-input#^2.1.1",
     "paper-listbox": "PolymerElements/paper-listbox#^2.0.0",

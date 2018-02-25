@@ -54,10 +54,34 @@
       <demo-snippet>
         <template>
           <plutonium-submenu>
-            <label href="#" slot="label">Menu</label>
+            <label href="#" slot="label">Menu #0</label>
             <a href="#" slot="menu">Submenu #0</a>
             <a href="#" slot="menu">Submenu #1</a>
             <a href="#" slot="menu">Submenu #2</a>
+          </plutonium-submenu>
+          <plutonium-submenu opened>
+            <label href="#" slot="label">Menu #1</label>
+            <a href="#" slot="menu">Submenu #0</a>
+            <a href="#" slot="menu">Submenu #1</a>
+            <a href="#" slot="menu">Submenu #2</a>
+          </plutonium-submenu>
+          <plutonium-submenu opened>
+            <label href="#" slot="label">Menu #2</label>
+            <a href="#" slot="menu">Submenu #0</a>
+            <a href="#" slot="menu">Submenu #1</a>
+            <plutonium-submenu slot="menu" opened>
+              <label href="#" slot="label">Submenu #3</label>
+              <a href="#" slot="menu">Subsubmenu #0</a>
+              <a href="#" slot="menu">Subsubmenu #1</a>
+              <a href="#" slot="menu">Subsubmenu #2</a>
+            </plutonium-submenu>
+            <plutonium-submenu slot="menu" opened>
+              <label href="#" slot="label">Menu #3</label>
+              <a href="#" slot="menu">Subsubmenu #0</a>
+              <a href="#" slot="menu">Subsubmenu #1</a>
+              <a href="#" slot="menu">Subsubmenu #2</a>
+              <a href="#" slot="menu">Subsubmenu #3</a>
+            </plutonium-submenu>
           </plutonium-submenu>
         </template>
       </demo-snippet>

@@ -1,23 +1,66 @@
 <link rel="import" href="../../polymer/polymer-element.html">
 <link rel="import" href="../../iron-collapse/iron-collapse.html">
+<link rel="import" href="../../iron-selector/iron-selector.html">
+<link rel="import" href="../../paper-item/paper-item.html">
+<link rel="import" href="../../paper-item/paper-item-shared-styles.html">
+<link rel="import" href="../../iron-icon/iron-icon.html">
 <link rel="import" href="../plutonium-shared-styles.html">
+<link rel="import" href="../plutonium-shared-icons.html">
 
 <dom-module id="plutonium-submenu">
     <template>
         <style include="plutonium-shared-styles">
             :host {
                 display: block;
+                @apply --layout-horizontal;
+
+            }
+
+            ::slotted(*) {
+                display: block;
+            }
+
+            :host:focus {
+                background-color: #0b97c4;
+            }
+
+            ::slotted([slot=label]) {
+                display: block;
+                padding: 0 16px;
+                text-decoration: none;
+                text-align: center;
+                color: var(--plutonium-menu-color, --primary-text-color);
+                line-height: 40px;
+                @apply --layout-flex;
+            }
+
+            iron-icon {
+                text-align: center;
+                vertical-align: center;
+            }
+
+            ::slotted(a) {
+                display: block;
+                padding: 0 16px;
+                text-decoration: none;
+                color: var(--plutonium-menu-color, --primary-text-color);
+                line-height: 40px;
+            }
+
+            ::slotted(.iron-selected) {
+                color: var(--plutonium-menu-selected-color, --accent-color);
             }
         </style>
 
-        <div id="labelContainer" on-click="onToggleSubmenuCollapse">
-            <slot name="label"></slot>
+        <div id="labelContainer" class="paper-item layout horizontal" on-click="onToggleSubmenuCollapse">
+            <slot id="labelSlot" name="label"></slot>
+            <iron-icon id="menuStateIcon" icon="[[currentMenuStateIcon]]"></iron-icon>
         </div>
 
-        <iron-collapse id="submenuCollapse">
-            <div class="layout vertical">
-                <slot name="menu"></slot>
-            </div>
+        <iron-collapse id="submenuCollapse" opened="{{opened}}">
+            <iron-selector class="layout vertical" selected="{{selectedMenu}}">
+                <slot id="submenuContainerSlot" name="menu"></slot>
+            </iron-selector>
         </iron-collapse>
         <div>
 
@@ -39,11 +82,66 @@
             }
 
             static get properties() {
-                return {};
+                return {
+                    opened: {
+                        type: Boolean,
+                        notify: true,
+                        value: () => false
+                    },
+                    selectedMenu: {
+                        type: Number,
+                        notify: true,
+                        value: () => 0
+                    },
+                    currentMenuStateIcon: {
+                        type: String,
+                        computed: '_computeCurrentMenuStateIcon(opened)',
+                        value: () => 'plutonium-shared-icons:keyboard-arrow-right'
+                    }
+                };
+            }
+
+            connectedCallback() {
+                super.connectedCallback();
+                let self = this;
+                this._observer = new Polymer.FlattenedNodesObserver(this.$.submenuContainerSlot, (info) => {
+                    this._processNewCrumbNodes(info.addedNodes);
+                    console.debug(this.fqen, 'observe submenu slots', info);
+                    this._processRemovedCrumbNodes(info.removedNodes);
+                });
+
+                // this.set('selectedCrumb', (this.$.crumbContainerSlot.assignedNodes({flatten: true}).length - 1) / 2);
+                // this.set('selectedCrumb', (this.$.crumbContainerSlot.assignedNodes({flatten: true}).length - 1) / 2);
+            }
+
+            _computeCurrentMenuStateIcon(opened) {
+                return opened ? 'plutonium-shared-icons:keyboard-arrow-down' : 'plutonium-shared-icons:keyboard-arrow-right';
+            }
+
+            _processNewCrumbNodes(nodes) {
+                let self = this;
+                nodes.forEach((value, index, array) => {
+                    value.setAttribute('class', 'paper-item');
+                });
+            }
+
+            _processRemovedCrumbNodes(nodes) {
+
             }
 
             onToggleSubmenuCollapse(e) {
                 this.$.submenuCollapse.toggle();
+                if (this.get('opened')) {
+                    this.$.labelSlot.assignedNodes({flatten: true}).forEach(function (value, index, array) {
+                        value.setAttribute('class', value.getAttribute('class') ? value.getAttribute('class') + ' iron-selected' : 'iron-selected');
+                    });
+
+                } else {
+                    this.$.labelSlot.assignedNodes({flatten: true}).forEach(function (value, index, array) {
+                        value.setAttribute('class', value.getAttribute('class') ? value.getAttribute('class').replace(' iron-selected', '') : 'iron-selected');
+                    });
+                }
+                this.set('selectedMenu', null);
             }
         }
 
